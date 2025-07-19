@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Contacts{% endblock %}
+{% block content %}
+    <div id="Chats">
+        {% for chat in chats %}
+            <div class="chat">
+                {% if chat.name != '' %}
+                    {{ chat.name }}
+                {% else %}
+                    {% for user in chats[chat] %}
+                        {% if user != current_user %}
+                            {{ user }}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    <script src="{{ url_for('chats.static', filename='js/socket.js') }}"></script>
+{% endblock %}
