@@ -4,17 +4,21 @@
     <div id="Chats">
         {% for chat in chats %}
             <div class="chat">
-                {% if chat.name != '' %}
-                    {{ chat.name }}
-                {% else %}
-                    {% for user in chats[chat] %}
-                        {% if user != current_user %}
-                            {{ user }}
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
+                <a href="{{ url_for('chats.chat', chat_id=chat.id) }}">
+                    {% if chat.name != None %}
+                        {{ chat.name }}
+                    {% else %}
+                        {% for user in chats[chat] %}
+                            {% if user != current_user %}
+                                {{ user.nickname }}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </a>
             </div>
         {% endfor %}
     </div>
-    <script src="{{ url_for('chats.static', filename='js/socket.js') }}"></script>
+    <script>
+
+    </script>
 {% endblock %}

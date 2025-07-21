@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}chat.name{% endblock %}
+{% block content %}
+    <h1>{{ chat_name }}</h1>
+
+    <div id="messages">
+        {% for message in chat.messages %}
+            <p>{{ users[message.author_id].nickname }} {{ message.message }}</p>
+        {% endfor %}
+    </div>
+
+    <input type="text" id="input_message">
+    <button onclick="send_message(document.getElementById('input_message').value)">Send</button>
+
+
+    <script>
+        const socket = io();
+
+        socket.emit('join', {{ chat.id }});
+
+        socket.on('message', receive_message);
+
+        function send_message(text){
+            socket.emit('message', {chat: {{ chat.id }}, message:text});
+        }
+
+        function receive_message(data){
+            const chat = document.getElementById('messages');
+
+            const new_message = document.createElement('p');
+            new_message.textContent = data['author']+" "+data['message'];
+
+            chat.appendChild(new_message)
+        }
+    </script>
+{% endblock %}

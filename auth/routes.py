@@ -28,6 +28,9 @@ def login():
 
 @auth.route('/signin', methods=['GET', 'POST'])
 def signin():
+    if current_user.is_authenticated:
+        return redirect(url_for('chats.contacts'))
+
     form = SigninForm()
     if request.method == 'GET':
         return render_template("signin.html", form=form)
