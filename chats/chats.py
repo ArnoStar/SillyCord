@@ -1,4 +1,3 @@
-from flask import jsonify
 from flask_login import current_user
 
 from .models import ChatUserLink, Chat, Message
@@ -80,8 +79,13 @@ def send_message(chat_id:int, message:str):
     message_model = Message(chat_id=chat_id, author_id=current_user.id, message=message)
     db.session.add(message_model)
     db.session.commit()
-    socket.emit('message', message_model.to_dict(), room=str(chat_id))
+    socket.emit('message', message_model.to_dict(), room=get_chat_room(chat_id))
 
 def get_message(chat_id:int)->list[Message]:
     chat = Chat.query.get(chat_id)
     return chat.messages
+
+def get_chat_room(chat_id:int) -> str:
+    return f"chat:{chat_id}"
+def get_useronline_room(user_id:int) -> str:
+    return f"user_online:{str(user_id)}"

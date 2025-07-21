@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 {% block title %}chat.name{% endblock %}
 {% block content %}
+    <a href="{{ url_for('chats.contacts') }}">Back</a>
+
     <h1>{{ chat_name }}</h1>
 
-    <div id="messages">
+    <div id="messages" style="height: 300px; overflow-y: auto">
         {% for message in chat.messages %}
-            <p>{{ users[message.author_id].nickname }} {{ message.message }}</p>
+            <div class="message">
+                <img class="profile_picture">
+                <p class="user_nickname">{{ users[message.author_id].nickname }}</p>
+                <p class="message_text">{{ message.message }}</p>
+            </div>
         {% endfor %}
     </div>
 
@@ -14,23 +20,38 @@
 
 
     <script>
+        const chat = document.getElementById('messages');
+        chat.scrollTop = chat.scrollHeight
+
         const socket = io();
-
-        socket.emit('join', {{ chat.id }});
-
+        socket.emit('join_chat', {{ chat.id }});
         socket.on('message', receive_message);
 
         function send_message(text){
+            document.getElementById('input_message').value = "";
             socket.emit('message', {chat: {{ chat.id }}, message:text});
         }
 
         function receive_message(data){
-            const chat = document.getElementById('messages');
+            const new_message_div = document.createElement('div');
+            const new_message_img = document.createElement('img');
+            const new_message_author = document.createElement('p');
+            const new_message_text = document.createElement('p');
 
-            const new_message = document.createElement('p');
-            new_message.textContent = data['author']+" "+data['message'];
+            new_message_div.className = "message";
+            new_message_img.className = "profile_picture";
+            new_message_author.className = "user_nickname";
+            new_message_text.className = "message_text";
 
-            chat.appendChild(new_message)
+            new_message_div.appendChild(new_message_img);
+            new_message_div.appendChild(new_message_author);
+            new_message_div.appendChild(new_message_text);
+
+            new_message_author.textContent = data['author'];
+            new_message_text.textContent = data['message'];
+
+            chat.appendChild(new_message_div)
+            chat.scrollTop = chat.scrollHeight
         }
     </script>
 {% endblock %}

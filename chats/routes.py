@@ -2,13 +2,14 @@ from flask import Blueprint, render_template, redirect, url_for
 from flask_login import current_user
 from flask_socketio import join_room
 
-from .chats import get_chats, get_chat_users_dict, is_user_in_chat, send_message, get_users, get_user_uid_dict
+from .chats import get_chats, get_chat_users_dict, is_user_in_chat, send_message, get_users, get_user_uid_dict, \
+    create_chat, get_chat_room
 from core.sockets import socket
 from .models import Chat
 
 chats = Blueprint('chats', __name__, template_folder='templates', static_folder='static')
 
-online_user = set() #In the future upgrade to Redis
+online_users = set() #In the future upgrade to Redis
 
 @chats.route("/contacts", methods=['GET', 'POST'])
 def contacts():
@@ -38,10 +39,10 @@ def chat(chat_id):
 
 @socket.on('connect')
 def connect():
-    online_user.add(current_user.id)
+    online_users.add(current_user.id)
 @socket.on('disconnect')
 def disconnect():
-    online_user.discard(current_user.id)
+    online_users.discard(current_user.id)
 
 @socket.on('message')
 def message(data):
@@ -49,7 +50,7 @@ def message(data):
     message = data['message']
     if is_user_in_chat(current_user.id, chat_id):
         send_message(chat_id, message)
-@socket.on('join')
-def join(room:int):
-    if is_user_in_chat(current_user.id, room):
-        join_room(str(room))
+@socket.on('join_chat')
+def join(chat_id:int):
+    if is_user_in_chat(current_user.id, chat_id):
+        join_room(get_chat_room(chat_id))
