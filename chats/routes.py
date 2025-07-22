@@ -2,8 +2,8 @@ from flask import Blueprint, render_template, redirect, url_for
 from flask_login import current_user
 from flask_socketio import join_room
 
-from .chats import get_chats, get_chat_users_dict, is_user_in_chat, send_message, get_users, get_user_uid_dict, \
-    create_chat, get_chat_room
+from .chats import get_chat_users_dict, is_user_in_chat, send_message, get_users, get_uid_user_dict, \
+    create_chat, get_chat_room, get_user_chats_links, get_chat_user_link
 from core.sockets import socket
 from .models import Chat
 
@@ -16,24 +16,18 @@ def contacts():
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
 
-    chats_users = get_chat_users_dict(current_user.id)
+    user_chats_links = get_user_chats_links(current_user.id)
 
-    return render_template('contacts.html', chats=chats_users)
+    return render_template('contacts.html', user_chats_links=user_chats_links)
 
 @chats.route("/chats/<chat_id>")
 def chat(chat_id):
     chat = Chat.query.get(chat_id)
-    user_uid_dict = get_user_uid_dict(chat_id)
-
-    if chat.name != None: #If the name is None that's that the chat is not a group, it's a chat between 2 people
-        chat_name = chat.name
-    else:
-        user_list = get_users(chat.id) #This code filter to get the nickname of the user that is NOT currently using the app
-        user_list.remove(current_user)
-        chat_name = user_list[0].nickname
+    user_uid_dict = get_uid_user_dict(chat_id)
+    chat_user_link = get_chat_user_link(current_user.id, chat_id)
 
     if is_user_in_chat(current_user.id, chat.id):
-        return render_template("chat.html", chat=chat, users=user_uid_dict, chat_name=chat_name)
+        return render_template("chat.html", chat=chat, uid_users_dict=user_uid_dict, chat_user_link=chat_user_link)
     else:
         return "You don't have access to this chat", 403
 

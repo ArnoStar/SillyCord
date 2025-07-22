@@ -18,3 +18,12 @@ class User(db.Model, UserMixin):
     nickname = db.Column(db.String(USERNAME_MAX_LENGTH), unique=False, nullable=False)
     profile_picture = db.Column(db.String(PROFILE_PICTURE_NAME_MAX_LENGTH), nullable=True)
     description = db.Column(db.Text, nullable=False, default='')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'nickname': self.nickname,
+            'profile_picture': self.profile_picture,
+            'description': self.description,
+        }

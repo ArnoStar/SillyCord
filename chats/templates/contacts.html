@@ -2,23 +2,12 @@
 {% block title %}Contacts{% endblock %}
 {% block content %}
     <div id="Chats">
-        {% for chat in chats %}
+        {% for link in user_chats_links %}
             <div class="chat">
-                <a href="{{ url_for('chats.chat', chat_id=chat.id) }}">
-                    {% if chat.name != None %}
-                        {{ chat.name }}
-                    {% else %}
-                        {% for user in chats[chat] %}
-                            {% if user != current_user %}
-                                {{ user.nickname }}
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
+                <a href="{{ url_for('chats.chat', chat_id=link.chat_id) }}">
+                    {{ link.name }}
                 </a>
             </div>
         {% endfor %}
     </div>
-    <script>
-
-    </script>
 {% endblock %}

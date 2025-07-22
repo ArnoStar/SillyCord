@@ -7,10 +7,7 @@ from users.models import User
 
 def get_chats(user_id:int):
     links = ChatUserLink.query.filter_by(user_id=user_id).all() #Get from the db the link chat-user, we will use this to get every link with the {user_id} and from here we can get the chats
-    chats = []
-    for link in links:
-        chat = Chat.query.get(link.chat_id)
-        chats.append(chat)
+    chats = Chat.query.filter([link.chat_id for link in links]).all()
     return chats
 def get_users(chat_id:int):
     links = ChatUserLink.query.filter_by(chat_id=chat_id).all() #Same thing here but we filter the link by the chat to get users, not by the user to get chats
@@ -19,6 +16,12 @@ def get_users(chat_id:int):
         user = User.query.get(link.user_id)
         users.append(user)
     return users
+def get_user_chats_links(user_id:int):
+    links = ChatUserLink.query.filter_by(user_id=user_id).all()
+    return links
+def get_chat_user_link(user_id:int, chat_id:int):
+    link = ChatUserLink.query.get((chat_id, user_id))
+    return link
 
 def get_chat_users_dict(user_id:int) -> dict: #This function use useful for the jinja2 code
     chat_users = dict()
@@ -27,24 +30,27 @@ def get_chat_users_dict(user_id:int) -> dict: #This function use useful for the 
 
     return chat_users
 
-def get_user_uid_dict(chat_id:int) -> dict: #This function use useful for the jinja2 code
+def get_uid_user_dict(chat_id:int) -> dict: #This function use useful for the jinja2 code
     users = get_users(chat_id)
-    user_uid_dict = dict()
+    uid_user_dict = dict()
     for user in users:
-        user_uid_dict[user.id] = user
+        uid_user_dict[user.id] = user
 
-    return user_uid_dict
+    return uid_user_dict
 
 def create_chat(user_id1:int, user_id2:int):
     new_chat = Chat()
     db.session.add(new_chat)
     db.session.flush()
 
-    new_link1 = ChatUserLink(user_id=user_id1, chat_id=new_chat.id)
-    new_link2 = ChatUserLink(user_id=user_id2, chat_id=new_chat.id)
+    users = User.query.filter(User.id.in_([user_id1, user_id2])).all()
+    users_dict = {user.id: user for user in users}
 
-    db.session.add(new_link1)
-    db.session.add(new_link2)
+    new_link = [None, None]
+    new_link[0] = ChatUserLink(user_id=user_id1, chat_id=new_chat.id, name=users_dict[user_id2].nickname)
+    new_link[1] = ChatUserLink(user_id=user_id2, chat_id=new_chat.id, name=users_dict[user_id1].nickname)
+
+    db.session.add_all(new_link)
 
     db.session.commit()
 
