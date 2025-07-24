@@ -6,7 +6,7 @@ from users.models import User
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.Text, nullable=False)
-    date = db.Column(db.DateTime, nullable=False, default=datetime.now(UTC))
+    date = db.Column(db.DateTime, nullable=False, default=lambda: datetime.now(UTC))
     author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     chat_id = db.Column(db.Integer, db.ForeignKey('chat.id'), nullable=False)
 

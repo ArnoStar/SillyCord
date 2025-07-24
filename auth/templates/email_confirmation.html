@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Confirm your email{% endblock %}
+{% block content %}
+<form method="POST" enctype="application/x-www-form-urlencoded">
+    {{ form.key.label }}<br>
+    {{ form.key }}
+
+    {{ form.submit }}
+</form>
+{% endblock %}

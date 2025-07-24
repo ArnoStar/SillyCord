@@ -5,9 +5,31 @@ from core.database import db
 from core.sockets import socket
 from users.models import User
 
+def does_user_exist(user_id):
+    user = User.query.get(user_id)
+    if user:
+        return True
+    return False
+def does_chat_exist(user_id1:int, user_id2:int)->bool:
+    common_chat = set()
+    chats_user1 = get_chats(user_id1)
+    chats_user2 = get_chats(user_id2)
+
+    sum_two_chats = len(chats_user1) + len(chats_user2)
+
+    for chat in chats_user1:
+        common_chat.add(chat)
+    for chat in chats_user2:
+        common_chat.add(chat)
+
+    if sum_two_chats > len(common_chat):
+        return True
+    else:
+        return False
+
 def get_chats(user_id:int):
     links = ChatUserLink.query.filter_by(user_id=user_id).all() #Get from the db the link chat-user, we will use this to get every link with the {user_id} and from here we can get the chats
-    chats = Chat.query.filter([link.chat_id for link in links]).all()
+    chats = Chat.query.filter(Chat.id.in_([link.chat_id for link in links])).all()
     return chats
 def get_users(chat_id:int):
     links = ChatUserLink.query.filter_by(chat_id=chat_id).all() #Same thing here but we filter the link by the chat to get users, not by the user to get chats
@@ -20,7 +42,7 @@ def get_user_chats_links(user_id:int):
     links = ChatUserLink.query.filter_by(user_id=user_id).all()
     return links
 def get_chat_user_link(user_id:int, chat_id:int):
-    link = ChatUserLink.query.get((chat_id, user_id))
+    link = ChatUserLink.query.get((user_id, chat_id))
     return link
 
 def get_chat_users_dict(user_id:int) -> dict: #This function use useful for the jinja2 code

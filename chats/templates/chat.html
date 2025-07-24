@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}chat_user_link.name{% endblock %}
+{% block title %}{{ chat_user_link.name }}{% endblock %}
 {% block content %}
     <a href="{{ url_for('chats.contacts') }}">Back</a>
 

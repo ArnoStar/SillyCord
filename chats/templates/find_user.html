@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Find your friends!{% endblock %}
+{% block content %}
+<a href="{{ url_for('chats.contacts') }}">Back</a>
+<form enctype="application/x-www-form-urlencoded" method="POST">
+    {{ form.hidden_tag() }}
+
+    {{ form.username.label }}<br>
+    {{ form.username }}
+    {{ form.submit }}
+</form>
+    <p>{{ get_flashed_messages()[0] }}</p>
+{% endblock %}
