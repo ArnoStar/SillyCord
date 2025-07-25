@@ -1,0 +1,30 @@
+{% extends 'profile.html' %}
+
+{% block profile_picture_edit %}
+    <form method="POST" enctype="multipart/form-data">
+        {{ profile_picture_form.profile_picture.label }}
+        {{ profile_picture_form.profile_picture }}<br>
+        {{ profile_picture_form.submit }}
+        <br><br><br>
+    </form>
+{% endblock %}
+
+{% block nickname_edit %}
+    <form method="POST" enctype="application/x-www-form-urlencoded">
+        {{ nickname_form.nickname.label }}
+        {{ nickname_form.nickname }}
+        {{ nickname_form.submit }}
+        <br><br><br>
+    </form>
+{% endblock %}
+
+{% block description_edit %}
+    <form method="POST" enctype="application/x-www-form-urlencoded">
+        {{ description_form.description.label }}<br>
+        {{ description_form.description }}<br>
+        {{ description_form.submit }}
+        <br><br><br>
+    </form>
+{% endblock %}
+
+{% block go_to_editor %}{% endblock %}

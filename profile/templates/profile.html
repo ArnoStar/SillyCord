@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Profile of {{ user.nickname }}{% endblock %}
+{% block content %}
+    <img class="profile_picture">
+    {% block profile_picture_edit %}{% endblock %}
+	<h1>{{ user.nickname }}</h1>
+    {% block nickname_edit %}{% endblock %}
+    <h2>{{ user.username }}</h2>
+    <br>
+    <h3>Description</h3>
+    <p>{{ user.description }}</p>
+    {% block description_edit %}{% endblock %}
+
+    {% block go_to_editor %}
+        {% if current_user.id == user.id %}
+            <a href="{{ url_for('profile.editor', user_id=current_user.id) }}">Edit?</a>
+        {% endif %}
+    {% endblock %}
+{% endblock %}

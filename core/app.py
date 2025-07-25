@@ -10,6 +10,7 @@ from .mail import mail
 from .sockets import socket
 from auth.routes import auth
 from chats.routes import chats
+from profile.routes import profile
 
 def create_app():
     load_dotenv()
@@ -39,5 +40,6 @@ def create_app():
     app.register_blueprint(core)
     app.register_blueprint(auth, url_prefix="/auth")
     app.register_blueprint(chats, url_prefix="/chats")
+    app.register_blueprint(profile, url_prefix="/profile")
 
     return app

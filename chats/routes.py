@@ -45,7 +45,7 @@ def find():
         return redirect(url_for('chats.contacts'))
 
 
-@chats.route("/chats/<chat_id>")
+@chats.route("/chats/<int:chat_id>")
 def chat(chat_id):
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))

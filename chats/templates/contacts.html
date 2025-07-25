@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Contacts{% endblock %}
 {% block content %}
-    <a>{{ current_user.nickname }}</a><br><br>
+    <a href="{{ url_for('profile.profile_page', user_id=current_user.id) }}">{{ current_user.nickname }}</a><br><br>
     <a href="{{ url_for('chats.find') }}">New contact</a>
     <div id="Chats">
         {% for link in user_chats_links %}
