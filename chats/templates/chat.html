@@ -8,7 +8,7 @@
     <div id="messages" style="height: 300px; overflow-y: auto">
         {% for message in chat.messages %}
             <div class="message">
-                <img class="profile_picture">
+                <img src="{{ url_for('static', filename='uploads/'+uid_users_dict[message.author_id].profile_picture) }}" class="profile_picture" height="50" width="50">
                 <p class="user_nickname">{{ uid_users_dict[message.author_id].nickname }}</p>
                 <p class="message_text">{{ message.message }}</p>
             </div>
@@ -47,6 +47,9 @@
             new_message_div.appendChild(new_message_author);
             new_message_div.appendChild(new_message_text);
 
+            new_message_img.src = "{{ url_for('static', filename='uploads/') }}"+data['author']['profile_picture'];
+            new_message_img.height = "50";
+            new_message_img.width = "50";
             new_message_author.textContent = data['author']['nickname'];
             new_message_text.textContent = data['message'];
 

@@ -15,7 +15,8 @@ from profile.routes import profile
 def create_app():
     load_dotenv()
 
-    app = Flask(__name__, template_folder='../templates')
+    app = Flask(__name__, template_folder='../templates', static_folder='../static')
+    app.config["UPLOAD_FOLDER"] = "static/uploads"
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")

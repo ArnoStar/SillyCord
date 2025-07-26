@@ -1,7 +1,8 @@
 {% extends 'profile.html' %}
-
+{% block back_button %}<a href="{{ url_for('profile.profile_page', user_id=current_user.id) }}">Back</a><br><br>{% endblock %}
 {% block profile_picture_edit %}
     <form method="POST" enctype="multipart/form-data">
+        {{ profile_picture_form.hidden_tag() }}
         {{ profile_picture_form.profile_picture.label }}
         {{ profile_picture_form.profile_picture }}<br>
         {{ profile_picture_form.submit }}
@@ -11,6 +12,7 @@
 
 {% block nickname_edit %}
     <form method="POST" enctype="application/x-www-form-urlencoded">
+        {{ profile_picture_form.hidden_tag() }}
         {{ nickname_form.nickname.label }}
         {{ nickname_form.nickname }}
         {{ nickname_form.submit }}
@@ -20,6 +22,7 @@
 
 {% block description_edit %}
     <form method="POST" enctype="application/x-www-form-urlencoded">
+        {{ profile_picture_form.hidden_tag() }}
         {{ description_form.description.label }}<br>
         {{ description_form.description }}<br>
         {{ description_form.submit }}

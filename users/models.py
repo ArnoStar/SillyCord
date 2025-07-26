@@ -6,6 +6,7 @@ from core.database import db
 
 MAX_TEMP_USER_LIFE_TIME = 15 #minutes
 
+DEFAULT_PROFILE_PICTURE = "default.jpg"
 USERNAME_MAX_LENGTH = 20
 USERNAME_MIN_LENGTH = 1
 PASSWORD_MAX_LENGTH = 40
@@ -23,7 +24,7 @@ class User(db.Model, UserMixin):
 
     #Not used in the logic of the application, fully customizable by the user
     nickname = db.Column(db.String(USERNAME_MAX_LENGTH), unique=False, nullable=False)
-    profile_picture = db.Column(db.String(PROFILE_PICTURE_NAME_MAX_LENGTH), nullable=True)
+    profile_picture = db.Column(db.String(PROFILE_PICTURE_NAME_MAX_LENGTH), nullable=False, default=DEFAULT_PROFILE_PICTURE)
     description = db.Column(db.Text, nullable=False, default='')
 
     def to_dict(self):
