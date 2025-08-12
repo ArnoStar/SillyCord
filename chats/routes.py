@@ -37,6 +37,9 @@ def find():
         if user is None:
             flash('Invalid username.')
             return render_template('find_user.html', form=form)
+        if current_user.id == user.id:
+            flash('You cannot create a chat with yourself.')
+            return render_template('find_user.html', form=form)
         if does_chat_exist(current_user.id, user.id):
             flash("You already have this person in your contacts.", "error")
             return render_template('find_user.html', form=form)

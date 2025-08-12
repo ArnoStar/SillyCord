@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}Contacts{% endblock %}
 {% block content %}
-    <a href="{{ url_for('profile.profile_page', user_id=current_user.id) }}">{{ current_user.nickname }}</a><br><br>
+    <a href="{{ url_for('profile.profile_page', user_id=current_user.id) }}">
+        <img class="profile_picture" height="50" width="50" src="{{ url_for('static', filename='uploads/'+current_user.profile_picture) }}">
+        {{ current_user.nickname }}
+    </a><br><br>
+
     <a href="{{ url_for('chats.find') }}">New contact</a>
     <div id="Chats">
         {% for link in user_chats_links %}

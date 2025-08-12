@@ -7,9 +7,8 @@ from users.models import User
 
 def does_user_exist(user_id):
     user = User.query.get(user_id)
-    if user:
-        return True
-    return False
+    return bool(user)
+
 def does_chat_exist(user_id1:int, user_id2:int)->bool:
     common_chat = set()
     chats_user1 = get_chats(user_id1)
@@ -77,20 +76,18 @@ def create_chat(user_id1:int, user_id2:int):
     db.session.commit()
 
 def create_group(users_ids:list[int]):
-    default_name = ''
-
-    new_chat = Chat(name=default_name)
+    new_chat = Chat()
     db.session.add(new_chat)
     db.session.flush()
 
-    for user_id in users_ids:
-        user = User.query.get(user_id)
-        default_name += user.nickname+" "
+    users = User.query.filter(User.id.in_(users_ids)).all()
 
-        new_link = ChatUserLink(user_id=user_id, chat_id=new_chat.id)
+    for user in users:
+        name = [nickname for nickname in user.nickname]
+        name.remove(user.nickname)
+        name = "".join(name)
+        new_link = ChatUserLink(user_id=user.id, chat_id=new_chat.id, name=name)
         db.session.add(new_link)
-
-    new_chat.name = default_name
 
     db.session.commit()
 

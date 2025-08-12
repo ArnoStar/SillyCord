@@ -23,7 +23,7 @@ def change_profile_picture(user:User, image):
 
     image.save(image_path)
     old_file_name = user.profile_picture
-    if old_file_name is not DEFAULT_PROFILE_PICTURE:
+    if old_file_name != DEFAULT_PROFILE_PICTURE:
         old_file_path = os.path.join(current_app.config['UPLOAD_FOLDER'], old_file_name)
         os.remove(old_file_path) #Delete the old profile_picture
     user.profile_picture = image_name
