@@ -6,7 +6,7 @@ email confirmation, profiles, profile editing, realtime messaging.
 
 ## Run the project
 
-You'll need python and git installed on your PC (I know this is really unexpected).\
+You'll need python 3.11 or higher and git installed on your PC.\
 If you want you can create a python virtual environment.
 1. First clone the GitHub repository with this command.\
 ``git clone https://github.com/ArnoStar/SillyCord.git`` \
