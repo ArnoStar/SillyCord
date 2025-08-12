@@ -17,7 +17,7 @@ After that enter the SillyCord dir\
 3. Before running the project you need to set up some environment variables,
 if you don't know how just create a .env file and set variables like this:
 ````
-DEBUG=0 #Set to 0 if you want the debug set to false, 1 if true
+DEBUG=0 #Set to 0 if you want the debug set to false, 1 if true (DO NOT COPY THIS COMMENTS)
 SECRET_KEY=writeARandomSecretString
 DATABASE_URL=sqlite:///SillyCord.db #Unless you know what you're doing you should this like it is
 
