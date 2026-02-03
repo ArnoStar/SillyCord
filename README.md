@@ -72,7 +72,7 @@ Here is the main page. For now it is a bit empty. That's cause you have no frien
 
 ![Your profile](./docs/images/Capture6.PNG)
 
-Hmmmmm, your nickname and your description are really boring. Let's try to edit that. Click on the still unreadable Edit? button.
+Hmmmmm, your nickname and your description are really boring. Let's try to edit that. Click on the still unreadable "Edit?" button.
 
 ![Edit your profile](./docs/images/Capture7.PNG)
 
