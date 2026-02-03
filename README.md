@@ -100,5 +100,5 @@ No way, I can talk with him? For real? Let's try this.
 
 ![The chat with LORIS page](./docs/images/Capture13.PNG)
 
-WOW AND THIS IS REAL TIME (imagine that you can see that on a image).
+WOW AND THIS IS REAL TIME (imagine that you can see that on an image).
 Well that was a great adventure and a great app. The only thing that I can add is good luck with whatever you are trying to do with this and thanks for reading all of this <3
