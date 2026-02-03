@@ -44,7 +44,7 @@ This is the DB structure that is used in this code:
 - Message stores the message (NO WAY), when it was made, by who and to what chat.
 
 ### Logic
-![Logic](.docs/images/SequenceDiagram.drawio.png)
+![Logic](./docs/images/SequenceDiagram.drawio.png)
 
 This a diagram that explain the basic logic.
 
