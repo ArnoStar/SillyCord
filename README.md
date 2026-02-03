@@ -55,7 +55,7 @@ After running the command ``py run.py`` and tape in your browser http://127.0.0.
 ![The most beautiful UI ever created](./docs/images/Capture1.PNG)
 
 WOW! What is this? Is this a paiting made by Leonardo da Vinci? Oh no, my bad, this is just my UI.
-This is the login screen, but we have ONE and only ONE probleme. We don;t have an account, that's sad but my really big brain have a solution for you! You see at the bottom of your screen there is an unreadable "Doesn't have an account yet?". If you click on it you will see
+This is the login screen, but we have ONE and only ONE probleme. We don't have an account, that's sad but my really big brain have a solution for you! You see at the bottom of your screen there is an unreadable "Doesn't have an account yet?". If you click on it you will see
 
 ![CSS is for noobs](./docs/images/Capture2.PNG)
 
