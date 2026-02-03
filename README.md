@@ -68,7 +68,7 @@ After you confirmed you should be automatically loged in.
 
 ![The main page](./docs/images/Capture5.PNG)
 
-Here is the main page. For now it is a bit empty. That's cause you have no friend! Don't worry that's maybe sad but totally normal! But before we find you a friend let's edit your profile. Click on your self.
+Here is the main page. For now it is a bit empty. That's cause you have no friends! Don't worry that's maybe sad but totally normal! But before we find you a friend let's edit your profile. Click on your self.
 
 ![Your profile](./docs/images/Capture6.PNG)
 
